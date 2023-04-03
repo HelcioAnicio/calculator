@@ -1,34 +1,63 @@
-const btns = document.querySelectorAll('.numero');
+const numbers = document.querySelectorAll('.numero');
 const operators = document.querySelectorAll('.operador')
-const previewDisplay = document.querySelector('#valor-anterior')
+const equal = document.querySelector('.equal')
+const allClean = document.querySelector('.all-delete')
+const clean = document.querySelector('.delete')
+const previewDisplayText = document.querySelector('#valor-anterior')
+const actualDisplayText = document.querySelector('#valor-actual')
 
 
-// function soma () {
-btns.forEach((btn) => {
-  btn.addEventListener('click', ()=> {
-    const digit = parseInt (btn.innerHTML)
-    previewDisplay.innerHTML += digit;
-  })
-});
-
-
-operators.forEach((operator) => {
-  function soma () {
-    // switch (operator) {
-    //   // case :
-    //     // 
-    //     break;
-    
-    //   default:
-    //     break;
-    // }
-  
+class Calculator {
+  constructor(previewDisplayText, actualDisplayText) {
+    this.previewDisplayText = previewDisplayText;
+    this.actualDisplayText = actualDisplayText;
+    this.clear();
   }
-  operator.addEventListener('click', ()=> {
-    const calc = operator.innerHTML
-    
-    previewDisplay.innerHTML += ` ${calc}`;
+
+  
+  appendNumber (number) {
+    if (this.actualDisplay.includes('.') && number === '.') return;
+
+    this.actualDisplay = `${this.actualDisplay}${number.toString()}`
+  }
+
+  clear() {
+    this.previewDisplay = '';
+    this.actualDisplay = '';
+    this.operation = undefined;
+  }
+
+  updateDisplay() {
+    this.previewDisplayText.innerText = this.previewDisplay;
+    this.actualDisplayText.innerText = this.actualDisplay;
+  }
+
+
+}
+
+const calculator = new Calculator (
+  previewDisplayText,
+  actualDisplayText
+)
+
+allClean.addEventListener('click', () => {
+  calculator.clear();
+  calculator.updateDisplay();
+})
+
+numbers.forEach((number)=>{
+  number.addEventListener('click', () => {
+    calculator.appendNumber(number.innerText);
+    calculator.updateDisplay()
   })
-});
+})
+
+// numbers.forEach((number) => {
+//   number.addEventListener('click', ()=> {
+//     const digit = parseInt (number.innerHTML)
+//     previewDisplay.innerHTML += digit;
+//   })
+// });
+
 
 
